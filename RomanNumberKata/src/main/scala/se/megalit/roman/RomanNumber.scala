@@ -5,8 +5,7 @@ import RomanNumber._
  * Roman number code-kata.
  * Map arabic numbers to roman numbers.
  *
- * @author <a href="mailto:david.rosell@redpill-linpro.com">David Rosell</a>
- *
+ * @author <a href="mailto:wmdaros@gmail.com">David Rosell</a>
  */
 
 object RomanNumber {

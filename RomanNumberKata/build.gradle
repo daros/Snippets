@@ -16,6 +16,8 @@ ideaProject {
     }
 }
 
+apply plugin: 'eclipse'
+
 apply plugin: 'scala'
 
 defaultTasks 'build'
