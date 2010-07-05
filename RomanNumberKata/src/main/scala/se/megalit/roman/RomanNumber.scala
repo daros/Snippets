@@ -41,6 +41,15 @@ object RomanNumber {
     case s: Shiftable => s.shift(step)
     case _ => r
   }
+
+  def main(args: Array[String]) {
+    for (i <- 0 to 4000 if i%5 == 0) {
+      println
+      for (j <- 0 to 4) {
+        printf("%4s -> %15s ", i+j, RomanNumber(i+j).toString)
+      }
+    } 
+  }
 }
 
 private[roman] class RomanNumber(val arabicNumeral: Int) {
@@ -69,7 +78,7 @@ private[roman] class RomanNumber(val arabicNumeral: Int) {
     case  500 => "D"
     case 1000 => "M"
     case _ if arabicNumeral < 4000 => this.toList mkString
-    case _ => "undefined"
+    case _ => "-undefined-"
   }
 }
 

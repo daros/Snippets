@@ -37,3 +37,8 @@ dependencies {
   compile 'org.scala-lang:scala-library:2.8.0.RC6'
   compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC6-SNAPSHOT'
 }
+
+task main(type: JavaExec) {
+  main = 'se.megalit.roman.RomanNumber'
+  classpath = sourceSets.main.runtimeClasspath
+}

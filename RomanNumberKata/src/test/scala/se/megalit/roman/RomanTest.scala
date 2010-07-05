@@ -52,7 +52,7 @@ class RomanTest extends FlatSpec with ShouldMatchers {
   }
 
   "String representation of uninterpreted int numbers" should "be undefined for RomanNumbers" in {
-    RomanNumber(4000).toString should equal("undefined")
+    RomanNumber(4000).toString should equal("-undefined-")
   }
 
   "I" should "be shiftable 2 steps" in {
