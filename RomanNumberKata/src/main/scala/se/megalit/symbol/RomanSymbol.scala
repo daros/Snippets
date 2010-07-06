@@ -15,6 +15,8 @@ object RomanSymbol extends Enumeration {
   val C = Value
   val D = Value
   val M = Value
+  val R5000 = Value("\u2181")
+  val R10000 = Value("\u2182")
   val ? = Value("?")
 
   private[symbol] def shift(symbol: RomanSymbol.Value): RomanSymbol.Value = symbol match {
@@ -39,12 +41,11 @@ object RomanSymbol extends Enumeration {
 case class RomanNumber(val arabicNumber: Int) {
   import RomanSymbol._
 
-  def toSymbol = arabicNumber match {
-    case i if i < 10 => baseList(i)
-    case i if i < 100 => baseList(i/10).map(shift) ::: baseList(i%10)
-    case i if i < 1000 => baseList(i/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
-    case i if i < 10000 => baseList(i/1000).map(shift).map(shift).map(shift) ::: baseList(i%1000/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
-    case _ => List(?)
+  def toSymbol = buildList(arabicNumber.toString.reverse, List())
+
+  private def buildList(num: String, list: List[RomanSymbol.Value]): List[RomanSymbol.Value] = num match {
+      case i if i.length == 0 => list
+      case i => buildList(num.init, list.map(shift) ::: baseList(i.toInt%10))
   }
 
   override def toString = toSymbol.mkString
