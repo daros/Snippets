@@ -1,10 +1,10 @@
 package se.megalit.symbol
 
 /**
- * Created by IntelliJ IDEA.
- * User: David Rosell - Redpill-Linpro
- * Date: Jul 6, 2010
- * Time: 10:57:15 AM
+ * Roman number code-kata.
+ * Map arabic numbers to roman numbers.
+ *
+ * @author <a href="mailto:wmdaros@gmail.com">David Rosell</a>
  */
 
 object RomanSymbol extends Enumeration {
@@ -38,21 +38,18 @@ object RomanSymbol extends Enumeration {
     case 8 => List(V, I, I, I) // V :: I :: I :: I :: Nil
     case 9 => List(I, X)       // I :: X :: Nil
   }
-
 }
 
-object RomanNumber {
-  def apply(arabicNumber: Int) = new RomanNumber(arabicNumber)
-}
-
-class RomanNumber(val arabicNumber: Int) {
+case class RomanNumber(val arabicNumber: Int) {
   import RomanSymbol._
 
   def toSymbol = arabicNumber match {
     case i if i < 10 => baseList(i)
+    case i if i < 100 => baseList(i/10).map(shift) ::: baseList(i%10)
+    case i if i < 1000 => baseList(i/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
+    case i if i < 3999 => baseList(i/1000).map(shift).map(shift).map(shift) ::: baseList(i%1000/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
     case _ => List(Undefined)
   }
-
 
   override def toString = toSymbol.mkString
 }

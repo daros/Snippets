@@ -32,7 +32,7 @@ class RomanSymbolTest extends FlatSpec with ShouldMatchers {
   }
 
   "RomanNumber(1).toSymbol" should "equal List(I)" in {
-    RomanNumber(1).toSymbol should equal (List(I))
+    RomanNumber(1).toSymbol should be (List(I))
   }
 
   "RomanNumber 0 to 9" should "be defined" in {
@@ -43,7 +43,7 @@ class RomanSymbolTest extends FlatSpec with ShouldMatchers {
   }
 
   "RomanNumber 8 toString" should "equal VIII" in {
-    RomanNumber(8).toString should equal ("VIII")
+    RomanNumber(8).toString should be ("VIII")
   }
 
   "RomanNumber 4000 toString" should "be Undefined" in {
@@ -51,6 +51,23 @@ class RomanSymbolTest extends FlatSpec with ShouldMatchers {
   }
 
   "RomanNumber 4000 toSymbol" should "be List(Undefined)" in {
-    RomanNumber(4000).toSymbol should equal (List(Undefined))
+    RomanNumber(4000).toSymbol should be (List(Undefined))
   }
+
+  "RomanNumber 44 toSymbol" should "be List(X,L,I,V)" in {
+    RomanNumber(44).toSymbol should be (List(X, L, I, V))
+  }
+
+  "RomanNumber 111 toSymbol" should "be List(C,X,I)" in {
+    RomanNumber(111).toSymbol should be (List(C, X, I))
+  }
+
+  "RomanNumber 1505" should "be List(M,D,V)" in {
+    RomanNumber(1505).toSymbol should be (List(M,D,V))
+  }
+
+  "RomanNumber(999).toString" should "equal CMXCIX" in {
+    RomanNumber(999).toString should be ("CMXCIX")
+  }
+
 }
