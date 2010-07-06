@@ -8,22 +8,18 @@ package se.megalit.symbol
  */
 
 object RomanSymbol extends Enumeration {
-  val Undefined = Value
-  val I = Value(1)
-  val V = Value(5)
-  val X = Value(10)
-  val L = Value(50)
-  val C = Value(100)
-  val D = Value(500)
-  val M = Value(1000)
+  val I = Value
+  val V = Value
+  val X = Value
+  val L = Value
+  val C = Value
+  val D = Value
+  val M = Value
+  val ? = Value("?")
 
-  def shift(symbol: RomanSymbol.Value): RomanSymbol.Value = symbol match {
-    case I => X
-    case V => L
-    case X => C
-    case L => D
-    case C => M
-    case _ => Undefined
+  private[symbol] def shift(symbol: RomanSymbol.Value): RomanSymbol.Value = symbol match {
+    case s if s.id < RomanSymbol.nextId - 3 => RomanSymbol(s.id + 2)
+    case _ => ?
   }
 
   private[symbol] def baseList(i: Int): List[RomanSymbol.Value] = i match {
@@ -47,8 +43,8 @@ case class RomanNumber(val arabicNumber: Int) {
     case i if i < 10 => baseList(i)
     case i if i < 100 => baseList(i/10).map(shift) ::: baseList(i%10)
     case i if i < 1000 => baseList(i/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
-    case i if i < 3999 => baseList(i/1000).map(shift).map(shift).map(shift) ::: baseList(i%1000/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
-    case _ => List(Undefined)
+    case i if i < 10000 => baseList(i/1000).map(shift).map(shift).map(shift) ::: baseList(i%1000/100).map(shift).map(shift) ::: baseList(i%100/10).map(shift) ::: baseList(i%10)
+    case _ => List(?)
   }
 
   override def toString = toSymbol.mkString
