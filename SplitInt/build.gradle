@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenRepo urls: 'http://gradle.artifactoryonline.com/gradle/plugins'
+    }
+    dependencies {
+        classpath "org.gradle.plugins:gradle-idea-plugin:0.2"
+    }
+}
+
+apply plugin: 'org.gradle.idea'
+
+
+ideaProject {
+    withXml { root ->
+        root.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
+apply plugin: 'eclipse'
+
+apply plugin: 'scala'
+
+defaultTasks 'build'
+
+repositories {
+  mavenCentral()
+  mavenRepo urls: 'http://scala-tools.org/repo-releases/'
+  mavenRepo urls: 'http://scala-tools.org/repo-snapshots/'
+}
+
+dependencies {
+  // Lib for scala tools
+  scalaTools 'org.scala-lang:scala-library:2.8.0.RC6'
+  scalaTools 'org.scala-lang:scala-compiler:2.8.0.RC6'
+
+  // Lib for scala api
+  compile 'org.scala-lang:scala-library:2.8.0.RC6'
+  compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC6-SNAPSHOT'
+}
+
+task main(type: JavaExec) {
+  main = 'se.megalit.roman.RomanNumber'
+  classpath = sourceSets.main.runtimeClasspath
+}
