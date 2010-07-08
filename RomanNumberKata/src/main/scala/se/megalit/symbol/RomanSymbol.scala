@@ -41,12 +41,14 @@ object RomanSymbol extends Enumeration {
 case class RomanNumber(val arabicNumber: Int) {
   import RomanSymbol._
 
-  def toSymbol = buildList(arabicNumber.toString.reverse, List())
+  def toSymbol = buildList(arabicNumber, List())
 
-  private def buildList(num: String, list: List[RomanSymbol.Value]): List[RomanSymbol.Value] = num match {
-      case i if i.length == 0 => list
-      case i => buildList(num.init, list.map(shift) ::: baseList(i.toInt%10))
-  }
+  private implicit def intToList(i: Int): List[Int] = i.toString.toList.map(_.toInt - 48)
+
+  private def buildList(num: List[Int], res: List[RomanSymbol.Value]): List[RomanSymbol.Value] = num match {
+      case List() => res
+      case x :: xs => buildList(xs, res.map(shift) ::: baseList(x))
+    }
 
   override def toString = toSymbol.mkString
 }
