@@ -44,8 +44,10 @@ case class RomanNumber(val arabicNumber: Int) {
   def toSymbol = buildList(arabicNumber, List())
 
   private implicit def intToList(i: Int): List[Int] = i.toString.toList.map(_.toInt - 48)
+//  private implicit def intToList(i: Int): List[Int] = "\\d".r.findAllIn(i.toString).map(_.toInt).toList
 
-  private def buildList(num: List[Int], res: List[RomanSymbol.Value]): List[RomanSymbol.Value] = num match {
+  private def buildList(num: List[Int], res: List[RomanSymbol.Value]): List[RomanSymbol.Value] = 
+    num match {
       case List() => res
       case x :: xs => buildList(xs, res.map(shift) ::: baseList(x))
     }

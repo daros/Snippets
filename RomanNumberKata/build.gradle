@@ -20,7 +20,7 @@ apply plugin: 'eclipse'
 
 apply plugin: 'scala'
 
-defaultTasks 'build'
+defaultTasks 'build','scalatest'
 
 repositories {
   mavenCentral()
@@ -30,15 +30,24 @@ repositories {
 
 dependencies {
   // Lib for scala tools
-  scalaTools 'org.scala-lang:scala-library:2.8.0.RC6'
-  scalaTools 'org.scala-lang:scala-compiler:2.8.0.RC6'
+  scalaTools 'org.scala-lang:scala-library:2.8.0.RC7'
+  scalaTools 'org.scala-lang:scala-compiler:2.8.0.RC7'
 
   // Lib for scala api
-  compile 'org.scala-lang:scala-library:2.8.0.RC6'
-  compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC6-SNAPSHOT'
+  compile 'org.scala-lang:scala-library:2.8.0.RC7'
+  compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC7-SNAPSHOT'
 }
 
-task main(type: JavaExec) {
-  main = 'se.megalit.roman.RomanNumber'
-  classpath = sourceSets.main.runtimeClasspath
+task scalatest << {
+  ant.taskdef(
+          name: 'scalatest',
+          classname: 'org.scalatest.tools.ScalaTestAntTask',
+          classpath: configurations.compile.asPath + ':' + compileScala.destinationDir
+  )
+
+  ant.scalatest(
+          runpath: configurations.compile.asPath + ':' + 'build/classes/test',
+          haltonfailure: 'true',
+          fork: 'false'
+  )
 }

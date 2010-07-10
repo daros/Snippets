@@ -64,8 +64,8 @@ class RomanSymbolTest extends FlatSpec with ShouldMatchers {
     RomanNumber(1505).toSymbol should be (List(M,D,V))
   }
 
-  "RomanNumber 0 to 3999" should "be defined" in {
-    for (i <- 0 to 3999) {
+  "RomanNumber 0 to 39999" should "be defined" in {
+    for (i <- 0 to 39999) {
       RomanNumber(i).toSymbol.contains(?) should be(false)
     }
   }

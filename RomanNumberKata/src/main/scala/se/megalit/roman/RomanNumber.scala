@@ -43,7 +43,7 @@ object RomanNumber {
   }
 
   def main(args: Array[String]) {
-    for (i <- 0 to 4000 if i%5 == 0) {
+    for (i <- List.range(0,4000,5)) {
       println
       for (j <- 0 to 4) {
         printf("%4s -> %15s ", i+j, RomanNumber(i+j).toString)
