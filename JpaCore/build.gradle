@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        mavenRepo urls: 'http://gradle.artifactoryonline.com/gradle/plugins'
+    }
+    dependencies {
+        classpath "org.gradle.plugins:gradle-idea-plugin:0.2"
+    }
+}
+
+apply plugin: 'org.gradle.idea'
+
+
+ideaProject {
+    withXml { root ->
+        root.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
+apply plugin: 'eclipse'
+
+apply plugin: 'java'
+
+defaultTasks 'build'
+
+repositories {
+  mavenCentral()
+  mavenRepo urls: 'http://scala-tools.org/repo-releases/'
+  mavenRepo urls: 'http://scala-tools.org/repo-snapshots/'
+}
+
+dependencies {
+  // Lib for scala tools
+//  scalaTools 'org.scala-lang:scala-library:2.8.0.RC7'
+//  scalaTools 'org.scala-lang:scala-compiler:2.8.0.RC7'
+
+  // Lib for scala api
+//  compile 'org.scala-lang:scala-library:2.8.0.RC7'
+//  compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC7-SNAPSHOT'
+
+    compile 'org.springframework:spring-core:3.0.3.RELEASE'
+    compile 'org.springframework:spring-beans:3.0.3.RELEASE'
+    compile 'org.springframework:spring-tx:3.0.3.RELEASE'
+    compile 'org.springframework:spring-orm:3.0.3.RELEASE'
+    compile 'org.springframework:spring-context:3.0.3.RELEASE'
+    compile 'javax.persistence:persistence-api:1.0'
+    compile 'org.hibernate:hibernate-entitymanager:3.4.0.GA'
+    compile 'commons-lang:commons-lang:2.4'
+
+    compile 'org.springframework:spring-test:3.0.3.RELEASE'
+    compile 'org.mockito:mockito-all:1.8.5'
+    compile 'hsqldb:hsqldb:1.7.3.3'
+    compile 'junit:junit:4.7'
+    compile 'log4j:log4j:1.2.14'
+    compile 'org.slf4j:slf4j-api:1.5.8'
+    compile 'org.slf4j:slf4j-log4j12:1.5.8'
+}
+
+task scalatest << {
+  ant.taskdef(
+          name: 'scalatest',
+          classname: 'org.scalatest.tools.ScalaTestAntTask',
+          classpath: configurations.compile.asPath + ':' + compileScala.destinationDir
+  )
+
+  ant.scalatest(
+          runpath: 'build/classes/test',
+          haltonfailure: 'true',
+          fork: 'false'
+  )
+}
