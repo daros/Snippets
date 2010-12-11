@@ -80,6 +80,10 @@ class RomanSymbolTest extends FlatSpec with ShouldMatchers {
     println(5555 + " -> " + RomanNumber(5555))
   }
 
-
+  "All defined RomanNumbers" should "be printed" in {
+    val numbers = List.range(1,3999,10)
+    val roman = numbers.map(RomanNumber(_))
+    println(roman.mkString(", "))
+  }
 
 }

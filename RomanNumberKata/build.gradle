@@ -46,7 +46,7 @@ task scalatest << {
   )
 
   ant.scalatest(
-          runpath: configurations.compile.asPath + ':' + 'build/classes/test',
+          runpath: 'build/classes/test',
           haltonfailure: 'true',
           fork: 'false'
   )

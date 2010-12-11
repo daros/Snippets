@@ -1,7 +1,9 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 
-  <persistence-unit name="default">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-  </persistence-unit>
-  
+    <persistence-unit name="default">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!-- All Entities packaged in this jar ex. -->
+        <!-- <class>se.vgregion.portal.core.domain.patterns.entity.MockEntity</class> -->
+    </persistence-unit>
+
 </persistence>

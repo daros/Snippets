@@ -48,7 +48,8 @@ object RomanNumber {
       for (j <- 0 to 4) {
         printf("%4s -> %15s ", i+j, RomanNumber(i+j).toString)
       }
-    } 
+    }
+    3.formatted("%30d")
   }
 }
 
